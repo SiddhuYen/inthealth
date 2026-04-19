@@ -3,6 +3,7 @@ from flask_cors import CORS
 import sqlite3
 import re
 from time import time
+import os
 
 app = Flask(__name__)
 
@@ -79,7 +80,5 @@ def join():
 
     return jsonify({"success": True})
 
-
 if __name__ == "__main__":
-    init_db()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
