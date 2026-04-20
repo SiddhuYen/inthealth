@@ -28,16 +28,15 @@
       --radius: 6px;
     }
     body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text-primary); font-size: 16px; line-height: 1.5; }
-    .page { max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
+    .page { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
 
     .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--border); }
     .logo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary); }
-    .nav-badge { font-size: 12px; color: var(--text-secondary); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 4px 10px; }
+    .nav-tag { font-size: 12px; color: var(--text-tertiary); }
 
-    .hero { padding: 72px 0 56px; max-width: 560px; }
-    .tag { display: inline-block; font-size: 12px; font-weight: 500; color: var(--accent); background: var(--accent-subtle); border-radius: var(--radius); padding: 4px 10px; margin-bottom: 20px; letter-spacing: 0.01em; }
-    .hero h1 { font-size: 38px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 16px; }
-    .hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; max-width: 440px; }
+    .hero { padding: 96px 0 64px; max-width: 580px; }
+    .hero h1 { font-size: 40px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 16px; }
+    .hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; max-width: 460px; }
 
     .form-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
     .form-group input { flex: 1; min-width: 220px; font-family: inherit; font-size: 14px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text-primary); outline: none; transition: border-color 0.15s; }
@@ -53,15 +52,11 @@
     .notice.success { display: block; background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
     .notice.error { display: block; background: var(--error-bg); color: var(--error); border: 1px solid var(--error-border); }
 
-    .proof { display: flex; align-items: center; gap: 16px; padding: 20px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin: 48px 0; flex-wrap: wrap; }
-    .proof-stat { text-align: left; }
-    .proof-num { font-size: 20px; font-weight: 600; color: var(--text-primary); letter-spacing: -0.02em; }
-    .proof-label { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
-    .proof-divider { width: 1px; height: 32px; background: var(--border); }
+    .divider { height: 1px; background: var(--border); }
 
-    .section { margin-bottom: 64px; }
+    .section { margin: 64px 0; }
     .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
-    .section h2 { font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary); margin-bottom: 8px; }
+    .section h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary); margin-bottom: 8px; }
     .section .lead { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; max-width: 520px; }
 
     .problem-list { display: flex; flex-direction: column; }
@@ -78,24 +73,6 @@
     .step-body h3 { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
     .step-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
 
-    .trust-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
-    .trust-stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
-    .trust-stat .num { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--text-primary); }
-    .trust-stat .lbl { font-size: 12px; color: var(--text-tertiary); margin-top: 4px; }
-
-    .trust-list { display: flex; flex-direction: column; gap: 10px; }
-    .trust-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-secondary); }
-    .check { width: 16px; height: 16px; border-radius: 50%; background: var(--success-bg); border: 1px solid var(--success-border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .check svg { width: 9px; height: 9px; }
-
-    .tgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-    .tcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-    .tcard p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px; }
-    .tauthor { display: flex; align-items: center; gap: 10px; }
-    .tav { width: 32px; height: 32px; border-radius: 50%; background: var(--surface-2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: var(--text-secondary); }
-    .tname { font-size: 13px; font-weight: 500; color: var(--text-primary); }
-    .trole { font-size: 11px; color: var(--text-tertiary); }
-
     .faq-list { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--radius); }
     .faq-item { border-bottom: 1px solid var(--border-subtle); }
     .faq-item:last-child { border-bottom: none; }
@@ -106,11 +83,7 @@
     .faq-a { display: none; padding: 0 20px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
     .faq-item.open .faq-a { display: block; }
 
-    .cta-block { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; margin-bottom: 64px; }
-    .cta-block h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 8px; color: var(--text-primary); }
-    .cta-block p { font-size: 14px; color: var(--text-secondary); margin-bottom: 24px; }
-
-    footer { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    footer { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 64px; }
     footer p { font-size: 12px; color: var(--text-tertiary); }
     footer a { font-size: 12px; color: var(--text-tertiary); text-decoration: none; }
     footer a:hover { color: var(--text-secondary); }
@@ -122,132 +95,137 @@
 
   <nav class="nav">
     <span class="logo">IntHealth</span>
-    <span class="nav-badge">Early access — limited spots</span>
+    <span class="nav-tag">Coming soon</span>
   </nav>
 
   <div class="hero">
-    <span class="tag">Now open for early access</span>
-    <h1>Expert second opinions from verified international doctors</h1>
-    <p>No referrals. No insurance barriers. Get a specialist's written review of your case within 48 hours.</p>
+    <h1>A second opinion from the right specialist, without the wait</h1>
+    <p>We're building direct access to top international doctors — no referrals, no insurance barriers. Join the waitlist and be first in when we launch.</p>
     <div class="form-group">
       <input type="email" id="email" placeholder="your@email.com" />
-      <button class="btn-primary" id="submitBtn" onclick="handleSubmit()">Reserve your spot</button>
+      <button class="btn-primary" id="submitBtn" onclick="handleSubmit()">Join the waitlist</button>
     </div>
-    <p class="form-hint">No credit card required. We'll email you when your access is ready.</p>
+    <p class="form-hint">No spam. You'll hear from us when we're ready to launch.</p>
     <div class="notice" id="notice"></div>
   </div>
 
-  <div class="proof">
-    <div class="proof-stat"><div class="proof-num">2,400+</div><div class="proof-label">on the waitlist</div></div>
-    <div class="proof-divider"></div>
-    <div class="proof-stat"><div class="proof-num">500+</div><div class="proof-label">verified specialists</div></div>
-    <div class="proof-divider"></div>
-    <div class="proof-stat"><div class="proof-num">48 hrs</div><div class="proof-label">avg. turnaround</div></div>
-    <div class="proof-divider"></div>
-    <div class="proof-stat"><div class="proof-num">40+</div><div class="proof-label">countries represented</div></div>
-  </div>
+  <div class="divider"></div>
 
   <div class="section">
     <div class="section-label">The problem</div>
-    <h2>Getting a second opinion shouldn't take months</h2>
-    <p class="lead">The current system puts obstacles between you and the clarity you need.</p>
+    <h2>Getting a second opinion is harder than it should be</h2>
+    <p class="lead">The system wasn't built for patients who want real answers.</p>
     <div class="problem-list">
-      <div class="problem-item"><span class="p-num">01</span><div class="p-body"><h3>Long waits</h3><p>The average specialist appointment takes 3–6 weeks. For second opinions, add another month.</p></div></div>
-      <div class="problem-item"><span class="p-num">02</span><div class="p-body"><h3>Insurance restrictions</h3><p>Your insurer controls which doctors you can see. The best specialists are often out-of-network.</p></div></div>
-      <div class="problem-item"><span class="p-num">03</span><div class="p-body"><h3>Geographic limits</h3><p>World-class expertise is concentrated in a handful of cities. Most patients can't reach it.</p></div></div>
+      <div class="problem-item">
+        <span class="p-num">01</span>
+        <div class="p-body">
+          <h3>Long waits</h3>
+          <p>Specialist appointments take weeks — sometimes months. Second opinions feel like a low priority to everyone except you.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="p-num">02</span>
+        <div class="p-body">
+          <h3>Insurance gatekeeping</h3>
+          <p>Your insurer decides which doctors you can see. The best specialist for your condition is often out-of-network.</p>
+        </div>
+      </div>
+      <div class="problem-item">
+        <span class="p-num">03</span>
+        <div class="p-body">
+          <h3>Geographic limits</h3>
+          <p>Top expertise is concentrated in a few cities. Where you live shouldn't determine the quality of care you can access.</p>
+        </div>
+      </div>
     </div>
   </div>
+
+  <div class="divider"></div>
 
   <div class="section">
     <div class="section-label">How it works</div>
-    <h2>Three steps to an expert review</h2>
-    <p class="lead">Submit once, get matched, receive a detailed written opinion.</p>
+    <h2>Simple from start to finish</h2>
+    <p class="lead">Submit your case, get matched, receive a written expert review.</p>
     <div class="steps-list">
-      <div class="step-item"><div class="step-num">1</div><div class="step-body"><h3>Submit your case</h3><p>Upload your records, imaging, and questions through our secure intake form. We review for completeness within 24 hours.</p></div></div>
-      <div class="step-item"><div class="step-num">2</div><div class="step-body"><h3>We match you with a specialist</h3><p>Our clinical team identifies the right doctor for your condition — board-certified, with direct relevant experience.</p></div></div>
-      <div class="step-item"><div class="step-num">3</div><div class="step-body"><h3>Receive your written opinion</h3><p>You get a detailed report within 48 hours. Optional video follow-up available if you have questions.</p></div></div>
+      <div class="step-item">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Submit your case</h3>
+          <p>Upload your records, imaging, and questions securely. We review everything before matching you.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Get matched with a specialist</h3>
+          <p>We connect you with a board-certified doctor who has direct experience with your condition.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Receive your written opinion</h3>
+          <p>A detailed, actionable report — with an optional video follow-up if you have questions.</p>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="section">
-    <div class="section-label">Built for trust</div>
-    <h2>What we stand behind</h2>
-    <div class="trust-grid">
-      <div class="trust-stat"><div class="num">500+</div><div class="lbl">Verified specialists</div></div>
-      <div class="trust-stat"><div class="num">48 hrs</div><div class="lbl">Avg. report delivery</div></div>
-      <div class="trust-stat"><div class="num">40+</div><div class="lbl">Countries represented</div></div>
-      <div class="trust-stat"><div class="num">HIPAA</div><div class="lbl">Compliant infrastructure</div></div>
-    </div>
-    <div class="trust-list">
-      <div class="trust-item"><div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2da866" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Every doctor is board-certified and individually vetted by our clinical team</div>
-      <div class="trust-item"><div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2da866" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>End-to-end encrypted records — never sold or shared with third parties</div>
-      <div class="trust-item"><div class="check"><svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#2da866" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>Flat, transparent pricing — no insurance required, no hidden fees</div>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">From patients</div>
-    <h2>What people are saying</h2>
-    <div class="tgrid">
-      <div class="tcard"><p>"I waited four months locally. IntHealth had a specialist review my case in 36 hours — and caught something my local doctors missed."</p><div class="tauthor"><div class="tav">SJ</div><div><div class="tname">Sarah J.</div><div class="trole">California, USA</div></div></div></div>
-      <div class="tcard"><p>"The written report was more thorough than any in-person consult I'd had. Detailed, referenced, and actually actionable."</p><div class="tauthor"><div class="tav">MC</div><div><div class="tname">Mark C.</div><div class="trole">London, UK</div></div></div></div>
-      <div class="tcard"><p>"Transparent pricing, no hoops to jump through. The specialist answered follow-up questions in the report itself."</p><div class="tauthor"><div class="tav">AT</div><div><div class="tname">Amira T.</div><div class="trole">Dubai, UAE</div></div></div></div>
-    </div>
-  </div>
+  <div class="divider"></div>
 
   <div class="section">
     <div class="section-label">FAQ</div>
     <h2>Common questions</h2>
     <div class="faq-list">
-      <div class="faq-item open"><button class="faq-q" onclick="toggleFaq(this)">What types of cases do you accept?<span class="faq-icon">+</span></button><div class="faq-a">We work with most non-emergency cases — oncology, cardiology, neurology, orthopedics, and rare diseases. Submit your case and we'll confirm eligibility within 24 hours.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How much does it cost?<span class="faq-icon">+</span></button><div class="faq-a">Pricing depends on case complexity and specialty. Early access members receive a discount. We share full pricing before you commit — no surprises.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Is my data secure?<span class="faq-icon">+</span></button><div class="faq-a">Yes. All records are encrypted in transit and at rest on HIPAA-compliant infrastructure. We never sell or share your data with advertisers or insurers.</div></div>
-      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How quickly will I hear back?<span class="faq-icon">+</span></button><div class="faq-a">Most cases receive a written opinion within 48 hours of submission. Complex multi-specialty cases may take up to 72 hours. You'll be notified of the timeline when matched.</div></div>
+      <div class="faq-item open">
+        <button class="faq-q" onclick="toggleFaq(this)">When does IntHealth launch?<span class="faq-icon">+</span></button>
+        <div class="faq-a">We're working toward a launch later this year. Waitlist members will get early access before we open to the public.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What types of cases will you accept?<span class="faq-icon">+</span></button>
+        <div class="faq-a">We're starting with non-emergency cases — oncology, cardiology, neurology, orthopedics, and rare diseases. We'll confirm eligibility when you submit.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How much will it cost?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Pricing will be transparent and flat — no surprise charges, no insurance required. Waitlist members will hear pricing details first.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Is my data secure?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Yes. All records will be encrypted in transit and at rest, on HIPAA-compliant infrastructure. We will never sell or share your data.</div>
+      </div>
     </div>
-  </div>
-
-  <div class="cta-block">
-    <h2>Reserve your early access spot</h2>
-    <p>We're onboarding a limited number of patients before public launch. Join the waitlist and we'll contact you directly.</p>
-    <div class="form-group">
-      <input type="email" id="email2" placeholder="your@email.com" />
-      <button class="btn-primary" id="submitBtn2" onclick="handleSubmit2()">Join the waitlist</button>
-    </div>
-    <div class="notice" id="notice2"></div>
   </div>
 
   <footer>
-    <p>© 2025 IntHealth. All rights reserved.</p>
-    <div style="display:flex;gap:16px;">
-      <a href="#">Privacy policy</a>
-      <a href="#">Terms of service</a>
-    </div>
+    <p>© 2025 IntHealth</p>
+    <a href="#">Privacy policy</a>
   </footer>
 
 </div>
 
 <script>
-  document.getElementById('submitBtn').dataset.label = 'Reserve your spot';
-  document.getElementById('submitBtn2').dataset.label = 'Join the waitlist';
+  document.getElementById('submitBtn').dataset.label = 'Join the waitlist';
 
-  function setLoading(btnId, inputId, loading) {
-    const btn = document.getElementById(btnId);
-    const inp = document.getElementById(inputId);
+  function setLoading(loading) {
+    const btn = document.getElementById('submitBtn');
+    const inp = document.getElementById('email');
     btn.disabled = loading;
     inp.disabled = loading;
     btn.textContent = loading ? 'Submitting...' : btn.dataset.label;
   }
 
-  async function submit(emailId, btnId, noticeId) {
-    const email = document.getElementById(emailId).value.trim();
-    const notice = document.getElementById(noticeId);
+  async function handleSubmit() {
+    const email = document.getElementById('email').value.trim();
+    const notice = document.getElementById('notice');
     notice.className = 'notice';
+
     if (!email || !email.includes('@')) {
       notice.className = 'notice error';
       notice.textContent = 'Please enter a valid email address.';
       return;
     }
-    setLoading(btnId, emailId, true);
+
+    setLoading(true);
     try {
       const res = await fetch('https://inthealth.onrender.com', {
         method: 'POST',
@@ -257,8 +235,8 @@
       const data = await res.json();
       if (res.ok) {
         notice.className = 'notice success';
-        notice.textContent = "You're on the list. We'll be in touch when your access is ready.";
-        document.getElementById(emailId).value = '';
+        notice.textContent = "You're on the list. We'll reach out when we launch.";
+        document.getElementById('email').value = '';
       } else {
         notice.className = 'notice error';
         notice.textContent = data.error || 'Something went wrong. Please try again.';
@@ -267,12 +245,12 @@
       notice.className = 'notice error';
       notice.textContent = 'Unable to connect. Please try again in a moment.';
     }
-    setLoading(btnId, emailId, false);
+    setLoading(false);
   }
 
-  function handleSubmit() { submit('email', 'submitBtn', 'notice'); }
-  function handleSubmit2() { submit('email2', 'submitBtn2', 'notice2'); }
-  function toggleFaq(btn) { btn.closest('.faq-item').classList.toggle('open'); }
+  function toggleFaq(btn) {
+    btn.closest('.faq-item').classList.toggle('open');
+  }
 </script>
 
 </body>
