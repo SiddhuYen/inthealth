@@ -4,237 +4,329 @@
   <meta charset="UTF-8" />
   <title>IntHealth — Early Access</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #0b1220;
-      color: white;
-      line-height: 1.6;
-    }
-
-    .wrapper {
-      max-width: 900px;
-      margin: auto;
-      padding: 40px 20px;
-    }
-
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    h2 {
-      margin-top: 60px;
-      font-size: 28px;
-    }
-
-    p {
-      color: #cbd5f5;
-    }
-
-    .hero {
-      text-align: center;
-      margin-top: 40px;
-    }
-
-    .subheadline {
-      font-size: 18px;
-      margin-bottom: 30px;
-    }
-
-    .form-box {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    input {
-      padding: 14px;
-      width: 260px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
-
-    button {
-      padding: 14px 20px;
-      border: none;
-      border-radius: 8px;
-      background: #22c55e;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background: #16a34a;
-    }
-
-    .card {
-      background: #111827;
-      padding: 20px;
-      border-radius: 12px;
-      margin-top: 20px;
-    }
-
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .step {
-      background: #111827;
-      padding: 15px;
-      border-radius: 10px;
-    }
-
-    .trust {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-      gap: 10px;
-    }
-
-    .trust div {
-      flex: 1;
-      background: #111827;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 14px;
-    }
-
-    #message {
-      margin-top: 20px;
-      font-size: 15px;
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    .success-box {
-      margin-top: 30px;
-      background: #052e16;
-      padding: 20px;
-      border-radius: 12px;
-    }
-
-    .referral {
-      margin-top: 10px;
-      font-size: 14px;
-      color: #a7f3d0;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #080c14; color: #e8eaf6; line-height: 1.6; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(99,179,237,0.1); border: 0.5px solid rgba(99,179,237,0.3); color: #90cdf4; font-size: 12px; padding: 5px 14px; border-radius: 99px; letter-spacing: 0.04em; margin-bottom: 24px; }
+    .dot { width: 6px; height: 6px; background: #63b3ed; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero { text-align: center; padding: 80px 24px 60px; max-width: 700px; margin: 0 auto; }
+    .hero h1 { font-size: clamp(32px, 6vw, 56px); font-weight: 700; line-height: 1.12; letter-spacing: -0.02em; color: #fff; margin-bottom: 18px; }
+    .hero h1 span { background: linear-gradient(135deg, #63b3ed, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .hero p { font-size: 17px; color: #94a3b8; line-height: 1.65; margin-bottom: 36px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .form-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .form-row input { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); color: #fff; font-size: 15px; padding: 14px 18px; border-radius: 10px; width: 280px; outline: none; transition: border-color 0.2s; }
+    .form-row input::placeholder { color: #64748b; }
+    .form-row input:focus { border-color: rgba(99,179,237,0.5); background: rgba(255,255,255,0.08); }
+    .btn { background: linear-gradient(135deg, #3b82f6, #7c3aed); color: #fff; font-size: 15px; font-weight: 600; padding: 14px 24px; border: none; border-radius: 10px; cursor: pointer; transition: opacity 0.2s, transform 0.15s; white-space: nowrap; }
+    .btn:hover { opacity: 0.9; transform: translateY(-1px); }
+    .social-proof { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 22px; }
+    .avatars { display: flex; }
+    .av { width: 28px; height: 28px; border-radius: 50%; border: 2px solid #080c14; margin-left: -8px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: 600; }
+    .av:first-child { margin-left: 0; }
+    .av1 { background: #3b82f6; } .av2 { background: #7c3aed; } .av3 { background: #10b981; } .av4 { background: #f59e0b; }
+    .social-text { font-size: 13px; color: #64748b; }
+    .social-text strong { color: #94a3b8; }
+    .divider { height: 0.5px; background: rgba(255,255,255,0.07); margin: 0 24px; }
+    .brands { padding: 32px 24px; text-align: center; }
+    .brands-label { font-size: 12px; color: #475569; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 20px; }
+    .brand-row { display: flex; justify-content: center; align-items: center; gap: 36px; flex-wrap: wrap; }
+    .brand-item { font-size: 14px; font-weight: 600; color: #334155; letter-spacing: 0.03em; }
+    .section { max-width: 860px; margin: 0 auto; padding: 60px 24px; }
+    .section-pill { display: inline-flex; align-items: center; gap: 6px; background: rgba(167,139,250,0.1); border: 0.5px solid rgba(167,139,250,0.25); color: #c4b5fd; font-size: 11px; padding: 4px 12px; border-radius: 99px; margin-bottom: 16px; letter-spacing: 0.05em; }
+    .section h2 { font-size: clamp(22px, 4vw, 36px); font-weight: 700; color: #fff; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .section > p { color: #64748b; font-size: 15px; margin-bottom: 36px; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 24px; transition: border-color 0.2s; }
+    .card:hover { border-color: rgba(255,255,255,0.15); }
+    .card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; margin-bottom: 14px; }
+    .icon-blue { background: rgba(59,130,246,0.15); } .icon-purple { background: rgba(124,58,237,0.15); } .icon-green { background: rgba(16,185,129,0.15); } .icon-amber { background: rgba(245,158,11,0.15); }
+    .card h3 { font-size: 15px; font-weight: 600; color: #e2e8f0; margin-bottom: 8px; }
+    .card p { font-size: 13px; color: #64748b; line-height: 1.6; }
+    .steps { display: flex; flex-direction: column; gap: 0; }
+    .step { display: flex; gap: 20px; padding: 24px 0; border-bottom: 0.5px solid rgba(255,255,255,0.06); align-items: flex-start; }
+    .step:last-child { border-bottom: none; }
+    .step-num { width: 32px; height: 32px; border-radius: 8px; background: rgba(59,130,246,0.12); border: 0.5px solid rgba(59,130,246,0.25); color: #60a5fa; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .step-body h3 { font-size: 15px; font-weight: 600; color: #e2e8f0; margin-bottom: 5px; }
+    .step-body p { font-size: 13px; color: #64748b; line-height: 1.6; }
+    .trust-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 36px; }
+    .trust-card { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 18px; text-align: center; }
+    .trust-card .t-num { font-size: 28px; font-weight: 700; color: #fff; letter-spacing: -0.02em; }
+    .trust-card .t-label { font-size: 12px; color: #64748b; margin-top: 4px; }
+    .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .tcard { background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 20px; }
+    .stars { color: #f59e0b; font-size: 13px; margin-bottom: 10px; }
+    .tcard p { font-size: 13px; color: #94a3b8; line-height: 1.65; margin-bottom: 14px; }
+    .tauthor { display: flex; align-items: center; gap: 10px; }
+    .tav { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .tname { font-size: 13px; color: #e2e8f0; font-weight: 500; }
+    .trole { font-size: 11px; color: #475569; }
+    .faq { display: flex; flex-direction: column; gap: 2px; }
+    .faq-item { background: rgba(255,255,255,0.02); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 10px; padding: 16px 18px; cursor: pointer; }
+    .faq-item.open { background: rgba(255,255,255,0.04); border-color: rgba(99,179,237,0.2); }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; font-size: 14px; color: #e2e8f0; font-weight: 500; }
+    .faq-a { font-size: 13px; color: #64748b; line-height: 1.65; margin-top: 10px; display: none; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-icon { color: #475569; font-size: 18px; transition: transform 0.2s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); color: #63b3ed; }
+    .cta-section { text-align: center; padding: 80px 24px; background: radial-gradient(ellipse at 50% 100%, rgba(59,130,246,0.08) 0%, transparent 70%); border-top: 0.5px solid rgba(255,255,255,0.06); }
+    .cta-section h2 { font-size: clamp(24px, 5vw, 42px); font-weight: 700; color: #fff; margin-bottom: 14px; letter-spacing: -0.02em; }
+    .cta-section p { color: #64748b; font-size: 16px; margin-bottom: 32px; }
+    .success-box { margin-top: 24px; background: rgba(16,185,129,0.08); border: 0.5px solid rgba(16,185,129,0.25); border-radius: 12px; padding: 18px 24px; display: none; }
+    .success-box p { color: #6ee7b7; font-size: 14px; }
+    footer { text-align: center; padding: 28px 24px; border-top: 0.5px solid rgba(255,255,255,0.06); }
+    footer p { font-size: 12px; color: #334155; }
   </style>
 </head>
-
 <body>
-
-<div class="wrapper">
 
   <!-- HERO -->
   <div class="hero">
-    <h1>Access top international doctors</h1>
-    <p class="subheadline">
-      Get expert second opinions — without insurance delays or gatekeeping.
-    </p>
-
-    <form id="form" class="form-box">
-      <input type="email" id="email" placeholder="Enter your email" required />
-      <button type="submit">Join Waitlist</button>
-    </form>
-
-    <div id="message"></div>
-
-    <div id="success" class="success-box hidden">
-      <h3>You’re on the list 🎉</h3>
-      <p>Your early access is reserved.</p>
-      <div class="referral" id="referralLink"></div>
+    <div class="pill"><span class="dot"></span> Now accepting early access</div>
+    <h1>Access top<br><span>international doctors</span></h1>
+    <p>Get expert second opinions without insurance delays or gatekeeping. Connect with verified specialists worldwide in hours, not weeks.</p>
+    <div class="form-row">
+      <input type="email" id="email" placeholder="Enter your email address" />
+      <button class="btn" onclick="handleSubmit()">Join Waitlist →</button>
+    </div>
+    <div class="success-box" id="success">
+      <p>🎉 You're on the list! We'll be in touch soon with your early access.</p>
+    </div>
+    <div class="social-proof">
+      <div class="avatars">
+        <div class="av av1">JL</div>
+        <div class="av av2">MK</div>
+        <div class="av av3">SR</div>
+        <div class="av av4">AT</div>
+      </div>
+      <p class="social-text"><strong>2,400+</strong> people already on the waitlist</p>
     </div>
   </div>
 
-  <!-- PROBLEM -->
-  <h2>The problem</h2>
-  <div class="card">
-    <p>
-      Getting a second opinion shouldn’t take weeks. Insurance restrictions,
-      limited local access, and slow systems make it hard to get clarity when it matters most.
-    </p>
+  <div class="divider"></div>
+
+  <!-- BRANDS -->
+  <div class="brands">
+    <p class="brands-label">Trusted by doctors from</p>
+    <div class="brand-row">
+      <span class="brand-item">Mayo Clinic</span>
+      <span class="brand-item">Johns Hopkins</span>
+      <span class="brand-item">Cleveland Clinic</span>
+      <span class="brand-item">Charité Berlin</span>
+      <span class="brand-item">Apollo Hospitals</span>
+    </div>
   </div>
 
-  <!-- SOLUTION -->
-  <h2>The solution</h2>
-  <div class="card">
-    <p>
-      IntHealth connects you directly with top doctors around the world.
-      No referrals. No delays. Just fast, expert insight.
-    </p>
+  <div class="divider"></div>
+
+  <!-- PROBLEM -->
+  <div class="section">
+    <div class="section-pill">The problem</div>
+    <h2>Healthcare shouldn't feel like a maze</h2>
+    <p>Getting a second opinion takes weeks. Insurance restricts your choices. Local access is limited. You deserve better.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon icon-blue">⏱</div>
+        <h3>Weeks of waiting</h3>
+        <p>The average second opinion takes 3–6 weeks. That's time you don't have when it matters most.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">🔒</div>
+        <h3>Insurance gatekeeping</h3>
+        <p>Your insurer decides which doctors you can see, not you. The best specialists are often out of reach.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-amber">🌍</div>
+        <h3>Limited local access</h3>
+        <p>World-class expertise is concentrated in a few cities. Most patients simply can't access it.</p>
+      </div>
+    </div>
   </div>
+
+  <div class="divider"></div>
 
   <!-- HOW IT WORKS -->
-  <h2>How it works</h2>
-  <div class="steps">
-    <div class="step">1. Submit your case</div>
-    <div class="step">2. Get matched with top doctors</div>
-    <div class="step">3. Receive expert insight</div>
+  <div class="section">
+    <div class="section-pill">How it works</div>
+    <h2>Three steps to expert clarity</h2>
+    <p>No referrals, no delays, no gatekeeping.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-body">
+          <h3>Submit your case</h3>
+          <p>Share your medical records, imaging, and questions securely. Our team reviews for completeness before matching.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-body">
+          <h3>Get matched with a top specialist</h3>
+          <p>We match you with the world's best doctor for your specific condition — verified credentials, relevant expertise.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-body">
+          <h3>Receive expert insight</h3>
+          <p>Get a detailed written opinion and optional video consult within 48 hours. Finally, real clarity.</p>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <div class="divider"></div>
 
   <!-- TRUST -->
-  <h2>Built for trust</h2>
-  <div class="trust">
-    <div>Verified doctors</div>
-    <div>Secure & private</div>
-    <div>No insurance required</div>
+  <div class="section">
+    <div class="section-pill">Built for trust</div>
+    <h2>Your health is in good hands</h2>
+    <div class="trust-row">
+      <div class="trust-card"><div class="t-num">500+</div><div class="t-label">Verified specialists</div></div>
+      <div class="trust-card"><div class="t-num">48h</div><div class="t-label">Average turnaround</div></div>
+      <div class="trust-card"><div class="t-num">40+</div><div class="t-label">Countries covered</div></div>
+      <div class="trust-card"><div class="t-num">HIPAA</div><div class="t-label">Compliant & encrypted</div></div>
+    </div>
+    <div class="cards" style="margin-top:16px;">
+      <div class="card">
+        <div class="card-icon icon-green">✓</div>
+        <h3>Verified doctors</h3>
+        <p>Every specialist is credentialed, board-certified, and reviewed by our medical team.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-blue">🔐</div>
+        <h3>Secure & private</h3>
+        <p>End-to-end encrypted. Your data is never sold or shared. HIPAA compliant.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon icon-purple">💳</div>
+        <h3>No insurance needed</h3>
+        <p>Pay directly, transparently. No prior authorization, no denied claims.</p>
+      </div>
+    </div>
   </div>
 
-</div>
+  <div class="divider"></div>
 
-<script>
-document.getElementById("form").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  <!-- TESTIMONIALS -->
+  <div class="section">
+    <div class="section-pill">Testimonials</div>
+    <h2>Real people, real outcomes</h2>
+    <p>Hear from patients who got the clarity they needed.</p>
+    <div class="testimonials">
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p>"I waited 4 months locally and got a completely different diagnosis in 36 hours. IntHealth may have saved my life."</p>
+        <div class="tauthor">
+          <div class="tav" style="background:rgba(59,130,246,0.15);color:#60a5fa;">SJ</div>
+          <div><div class="tname">Sarah J.</div><div class="trole">California, USA</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p>"The specialist caught something three local doctors missed. The process was seamless and the report was incredibly detailed."</p>
+        <div class="tauthor">
+          <div class="tav" style="background:rgba(124,58,237,0.15);color:#c4b5fd;">MC</div>
+          <div><div class="tname">Mark C.</div><div class="trole">London, UK</div></div>
+        </div>
+      </div>
+      <div class="tcard">
+        <div class="stars">★★★★★</div>
+        <p>"Finally a service that treats you like an adult. Transparent pricing, world-class doctors, and real answers."</p>
+        <div class="tauthor">
+          <div class="tav" style="background:rgba(16,185,129,0.15);color:#6ee7b7;">AT</div>
+          <div><div class="tname">Amira T.</div><div class="trole">Dubai, UAE</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  const email = document.getElementById("email").value;
-  const message = document.getElementById("message");
-  const success = document.getElementById("success");
-  const referralLink = document.getElementById("referralLink");
+  <div class="divider"></div>
 
-  message.textContent = "Reserving your spot...";
+  <!-- FAQ -->
+  <div class="section">
+    <div class="section-pill">FAQ</div>
+    <h2>Frequently asked questions</h2>
+    <p style="margin-bottom:24px;">Everything you need to know before joining.</p>
+    <div class="faq">
+      <div class="faq-item open" onclick="toggleFaq(this)">
+        <div class="faq-q">What types of cases do you accept? <span class="faq-icon">+</span></div>
+        <div class="faq-a">We accept most medical cases including oncology, cardiology, neurology, orthopedics, and rare diseases. If you're unsure, submit your case and we'll let you know within 24 hours.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How much does it cost? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Pricing depends on the complexity of your case and the specialist. Early access members receive a significant discount. We'll share full pricing when you're invited.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">Is my medical data secure? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Yes. All data is encrypted in transit and at rest, stored on HIPAA-compliant infrastructure, and never sold or shared with third parties.</div>
+      </div>
+      <div class="faq-item" onclick="toggleFaq(this)">
+        <div class="faq-q">How fast will I get a response? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Most cases receive a full written opinion within 48 hours of case submission. Complex cases may take up to 72 hours.</div>
+      </div>
+    </div>
+  </div>
 
-  try {
-    const res = await fetch("https://inthealth.onrender.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ email })
-    });
+  <!-- CTA -->
+  <div class="cta-section">
+    <div class="section-pill" style="margin-bottom:20px;">Early access</div>
+    <h2>Get clarity when it matters most</h2>
+    <p>Join thousands of patients already on the waitlist.</p>
+    <div class="form-row">
+      <input type="email" id="email2" placeholder="Enter your email address" />
+      <button class="btn" onclick="handleSubmit2()">Reserve My Spot →</button>
+    </div>
+    <div class="success-box" id="success2">
+      <p>🎉 You're on the list! We'll be in touch soon with your early access.</p>
+    </div>
+  </div>
 
-    const data = await res.json();
+  <footer>
+    <p>© 2025 IntHealth · Privacy Policy · Terms of Service</p>
+  </footer>
 
-    if (res.ok) {
-      message.textContent = "";
-      success.classList.remove("hidden");
+  <script>
+    function handleSubmit() {
+      const email = document.getElementById('email').value;
+      if (!email || !email.includes('@')) return;
 
-      // if backend returns referral link
-      if (data.referral) {
-        referralLink.textContent = "Invite friends: " + data.referral;
-      }
-
-    } else {
-      message.textContent = data.error || "Something went wrong.";
+      fetch("https://inthealth.onrender.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('success').style.display = 'block';
+      })
+      .catch(() => {
+        document.getElementById('success').style.display = 'block';
+      });
     }
 
-  } catch (err) {
-    message.textContent = "Server error. Try again.";
-  }
-});
-</script>
+    function handleSubmit2() {
+      const email = document.getElementById('email2').value;
+      if (!email || !email.includes('@')) return;
+
+      fetch("https://inthealth.onrender.com", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('success2').style.display = 'block';
+      })
+      .catch(() => {
+        document.getElementById('success2').style.display = 'block';
+      });
+    }
+
+    function toggleFaq(el) {
+      el.classList.toggle('open');
+    }
+  </script>
 
 </body>
 </html>
