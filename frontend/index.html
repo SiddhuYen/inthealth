@@ -2,40 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Waitlist</title>
+  <title>IntHealth — Early Access</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #0f172a;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #0b1220;
+      color: white;
+      line-height: 1.6;
     }
 
-    .container {
+    .wrapper {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      margin-top: 60px;
+      font-size: 28px;
+    }
+
+    p {
+      color: #cbd5f5;
+    }
+
+    .hero {
       text-align: center;
-      max-width: 400px;
+      margin-top: 40px;
+    }
+
+    .subheadline {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+
+    .form-box {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
     }
 
     input {
-      padding: 12px;
-      width: 70%;
+      padding: 14px;
+      width: 260px;
+      border-radius: 8px;
       border: none;
-      border-radius: 6px;
-      margin-right: 8px;
+      font-size: 16px;
     }
 
     button {
-      padding: 12px 16px;
+      padding: 14px 20px;
       border: none;
-      border-radius: 6px;
+      border-radius: 8px;
       background: #22c55e;
       color: white;
+      font-size: 16px;
       cursor: pointer;
     }
 
@@ -43,24 +73,126 @@
       background: #16a34a;
     }
 
-    #message {
-      margin-top: 15px;
+    .card {
+      background: #111827;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+    }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .step {
+      background: #111827;
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .trust {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      gap: 10px;
+    }
+
+    .trust div {
+      flex: 1;
+      background: #111827;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
       font-size: 14px;
     }
+
+    #message {
+      margin-top: 20px;
+      font-size: 15px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .success-box {
+      margin-top: 30px;
+      background: #052e16;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .referral {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #a7f3d0;
+    }
+
   </style>
 </head>
+
 <body>
 
-<div class="container">
-  <h1>Join the Waitlist</h1>
-  <p>Be the first to get access.</p>
+<div class="wrapper">
 
-  <form id="form">
-    <input type="email" id="email" placeholder="Enter your email" required />
-    <button type="submit">Join</button>
-  </form>
+  <!-- HERO -->
+  <div class="hero">
+    <h1>Access top international doctors</h1>
+    <p class="subheadline">
+      Get expert second opinions — without insurance delays or gatekeeping.
+    </p>
 
-  <div id="message"></div>
+    <form id="form" class="form-box">
+      <input type="email" id="email" placeholder="Enter your email" required />
+      <button type="submit">Join Waitlist</button>
+    </form>
+
+    <div id="message"></div>
+
+    <div id="success" class="success-box hidden">
+      <h3>You’re on the list 🎉</h3>
+      <p>Your early access is reserved.</p>
+      <div class="referral" id="referralLink"></div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <h2>The problem</h2>
+  <div class="card">
+    <p>
+      Getting a second opinion shouldn’t take weeks. Insurance restrictions,
+      limited local access, and slow systems make it hard to get clarity when it matters most.
+    </p>
+  </div>
+
+  <!-- SOLUTION -->
+  <h2>The solution</h2>
+  <div class="card">
+    <p>
+      IntHealth connects you directly with top doctors around the world.
+      No referrals. No delays. Just fast, expert insight.
+    </p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="step">1. Submit your case</div>
+    <div class="step">2. Get matched with top doctors</div>
+    <div class="step">3. Receive expert insight</div>
+  </div>
+
+  <!-- TRUST -->
+  <h2>Built for trust</h2>
+  <div class="trust">
+    <div>Verified doctors</div>
+    <div>Secure & private</div>
+    <div>No insurance required</div>
+  </div>
+
 </div>
 
 <script>
@@ -69,8 +201,10 @@ document.getElementById("form").addEventListener("submit", async (e) => {
 
   const email = document.getElementById("email").value;
   const message = document.getElementById("message");
+  const success = document.getElementById("success");
+  const referralLink = document.getElementById("referralLink");
 
-  message.textContent = "Loading...";
+  message.textContent = "Reserving your spot...";
 
   try {
     const res = await fetch("https://inthealth.onrender.com", {
@@ -84,12 +218,20 @@ document.getElementById("form").addEventListener("submit", async (e) => {
     const data = await res.json();
 
     if (res.ok) {
-      message.textContent = "You're on the list 🎉";
+      message.textContent = "";
+      success.classList.remove("hidden");
+
+      // if backend returns referral link
+      if (data.referral) {
+        referralLink.textContent = "Invite friends: " + data.referral;
+      }
+
     } else {
-      message.textContent = data.error;
+      message.textContent = data.error || "Something went wrong.";
     }
+
   } catch (err) {
-    message.textContent = "Something went wrong.";
+    message.textContent = "Server error. Try again.";
   }
 });
 </script>
