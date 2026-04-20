@@ -135,29 +135,6 @@ def debug_db():
         }), 500
 
 
-# TEMP ROUTE
-@app.route("/admin/drop-users", methods=["GET"])
-def drop_users():
-    secret = request.args.get("key")
-
-    if not ADMIN_KEY or secret != ADMIN_KEY:
-        return jsonify({"error": "Unauthorized"}), 401
-
-    conn = get_connection()
-    c = conn.cursor()
-    try:
-        c.execute("DROP TABLE IF EXISTS users;")
-        conn.commit()
-        return jsonify({"success": True, "message": "users table dropped"})
-    except Exception as e:
-        conn.rollback()
-        logging.exception("Error dropping users table")
-        return jsonify({"error": "Server error", "detail": str(e)}), 500
-    finally:
-        c.close()
-        conn.close()
-
-
 @app.route("/join", methods=["POST"])
 def join():
     forwarded_for = request.headers.get("X-Forwarded-For", "")
@@ -191,6 +168,40 @@ def join():
         return jsonify({"error": "Server error"}), 500
 
     return jsonify({"success": True}), 201
+
+
+@app.route("/admin/emails", methods=["GET"])
+def admin_emails():
+    secret = request.args.get("key")
+
+    if not ADMIN_KEY or secret != ADMIN_KEY:
+        return jsonify({"error": "Unauthorized"}), 401
+
+    conn = get_connection()
+    c = conn.cursor()
+    try:
+        c.execute("""
+            SELECT first_name, last_name, email, created_at
+            FROM users
+            ORDER BY created_at DESC
+        """)
+        rows = c.fetchall()
+
+        return jsonify([
+            {
+                "first_name": row[0],
+                "last_name": row[1],
+                "email": row[2],
+                "created_at": row[3].isoformat() if row[3] else None
+            }
+            for row in rows
+        ])
+    except Exception as e:
+        logging.exception(f"DB error while fetching admin emails: {e}")
+        return jsonify({"error": "Server error"}), 500
+    finally:
+        c.close()
+        conn.close()
 
 
 @app.route("/", methods=["GET"])
