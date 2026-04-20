@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import sqlite3
+import psycopg2
 import re
 from time import time
 import os
@@ -11,37 +11,34 @@ CORS(app, origins=[
     "https://inthealth-1.onrender.com",
     "http://localhost:3000",
     "http://127.0.0.1:5500"
-])  
+])
 
 logging.basicConfig(level=logging.INFO)
 
 EMAIL_REGEX = r"^[^@]+@[^@]+\.[^@]+$"
-
 requests_log = {}
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
 
 def is_rate_limited(ip):
     now = time()
     window = 60
     limit = 5
-
     if ip not in requests_log:
         requests_log[ip] = []
-
     requests_log[ip] = [t for t in requests_log[ip] if now - t < window]
-
     if len(requests_log[ip]) >= limit:
         return True
-
     requests_log[ip].append(now)
     return False
 
 
 def init_db():
-    conn = sqlite3.connect("waitlist.db")
+    conn = psycopg2.connect(DATABASE_URL)
     c = conn.cursor()
     c.execute("""
         CREATE TABLE IF NOT EXISTS users (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             email TEXT UNIQUE NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )
@@ -51,13 +48,13 @@ def init_db():
 
 
 def insert_email(email):
-    conn = sqlite3.connect("waitlist.db")
+    conn = psycopg2.connect(DATABASE_URL)
     c = conn.cursor()
     try:
-        c.execute("INSERT INTO users (email) VALUES (?)", (email,))
+        c.execute("INSERT INTO users (email) VALUES (%s)", (email,))
         conn.commit()
         return True
-    except sqlite3.IntegrityError:
+    except psycopg2.errors.UniqueViolation:
         return False
     except Exception as e:
         logging.error(f"DB error: {e}")
