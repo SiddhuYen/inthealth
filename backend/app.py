@@ -7,7 +7,11 @@ import os
 import logging
 
 app = Flask(__name__)
-CORS(app, origins=["https://yourdomain.com"])  # lock this down before going live
+CORS(app, origins=[
+    "https://inthealth-1.onrender.com",
+    "http://localhost:3000",
+    "http://127.0.0.1:5500"
+])  # lock this down before going live
 
 logging.basicConfig(level=logging.INFO)
 
