@@ -81,17 +81,62 @@ def insert_user(email, first_name, last_name):
     except errors.UniqueViolation:
         conn.rollback()
         return "duplicate"
-    except Exception:
+    except Exception as e:
         conn.rollback()
-        logging.exception("DB error while inserting user")
+        logging.exception(f"DB error while inserting user: {e}")
         return "error"
     finally:
         c.close()
         conn.close()
 
 
-# 🔴 TEMP ROUTE — DROP TABLE
-@app.route("/admin/drop-users", methods=["POST"])
+@app.route("/debug/db", methods=["GET"])
+def debug_db():
+    try:
+        conn = get_connection()
+        c = conn.cursor()
+
+        c.execute("SELECT current_database(), current_user;")
+        db_info = c.fetchone()
+
+        c.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_name = 'users'
+            );
+        """)
+        users_table_exists = c.fetchone()[0]
+
+        c.execute("""
+            SELECT column_name, data_type
+            FROM information_schema.columns
+            WHERE table_name = 'users'
+            ORDER BY ordinal_position;
+        """)
+        columns = c.fetchall()
+
+        c.close()
+        conn.close()
+
+        return jsonify({
+            "database_url_present": bool(DATABASE_URL),
+            "connected": True,
+            "database_name": db_info[0],
+            "database_user": db_info[1],
+            "users_table_exists": users_table_exists,
+            "users_columns": columns
+        }), 200
+    except Exception as e:
+        logging.exception(f"debug_db failed: {e}")
+        return jsonify({
+            "database_url_present": bool(DATABASE_URL),
+            "connected": False,
+            "error": str(e)
+        }), 500
+
+
+# TEMP ROUTE
+@app.route("/admin/drop-users", methods=["GET"])
 def drop_users():
     secret = request.args.get("key")
 
@@ -119,7 +164,7 @@ def join():
     ip = forwarded_for.split(",")[0].strip() if forwarded_for else request.remote_addr
 
     if is_rate_limited(ip):
-        return jsonify({"error": "Too many requests"}), 429
+        return jsonify({"error": "Too many requests. Try again in a minute."}), 429
 
     data = request.get_json(silent=True)
     if not data:
@@ -130,10 +175,10 @@ def join():
     last_name = (data.get("last_name") or "").strip()
 
     if not re.match(EMAIL_REGEX, email):
-        return jsonify({"error": "Invalid email"}), 400
+        return jsonify({"error": "Invalid email address"}), 400
 
     if not first_name or not last_name:
-        return jsonify({"error": "Name required"}), 400
+        return jsonify({"error": "First and last name are required"}), 400
 
     first_name = first_name.capitalize()
     last_name = last_name.capitalize()
@@ -141,7 +186,7 @@ def join():
     result = insert_user(email, first_name, last_name)
 
     if result == "duplicate":
-        return jsonify({"error": "Already on waitlist"}), 409
+        return jsonify({"error": "That email is already on the waitlist"}), 409
     if result == "error":
         return jsonify({"error": "Server error"}), 500
 
@@ -153,9 +198,8 @@ def home():
     return "Backend is running", 200
 
 
-# Run init_db ALWAYS (important for Render)
 if not DATABASE_URL:
-    raise RuntimeError("DATABASE_URL not set")
+    raise RuntimeError("DATABASE_URL environment variable is not set")
 
 init_db()
 
