@@ -91,7 +91,8 @@ def insert_user(email, first_name, last_name):
 
 @app.route("/join", methods=["POST"])
 def join():
-    ip = request.headers.get("X-Forwarded-For", request.remote_addr)
+    forwarded_for = request.headers.get("X-Forwarded-For", "")
+    ip = forwarded_for.split(",")[0].strip() if forwarded_for else request.remote_addr
 
     if is_rate_limited(ip):
         return jsonify({"error": "Too many requests. Try again in a minute."}), 429

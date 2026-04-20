@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
       --bg: #0d0d0d;
       --surface: #141414;
@@ -89,10 +90,11 @@
       flex-direction: column;
       gap: 8px;
       margin-bottom: 12px;
-      max-width: 520px;
+      max-width: 560px;
     }
 
-    .name-row {
+    .name-row,
+    .email-row {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
@@ -123,17 +125,6 @@
     .input:disabled {
       opacity: 0.5;
       cursor: not-allowed;
-    }
-
-    .email-row {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .email-row .input {
-      flex: 1;
-      min-width: 260px;
     }
 
     .btn-primary {
@@ -399,11 +390,12 @@
         font-size: 32px;
       }
 
+      .name-row,
       .email-row {
         flex-direction: column;
       }
 
-      .email-row .btn-primary {
+      .btn-primary {
         width: 100%;
       }
     }
