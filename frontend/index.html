@@ -27,66 +27,386 @@
       --error-border: #4d1a1a;
       --radius: 6px;
     }
-    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text-primary); font-size: 16px; line-height: 1.5; }
-    .page { max-width: 760px; margin: 0 auto; padding: 0 24px 80px; }
 
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; border-bottom: 1px solid var(--border); }
-    .logo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary); }
-    .nav-tag { font-size: 12px; color: var(--text-tertiary); }
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 16px;
+      line-height: 1.5;
+    }
 
-    .hero { padding: 96px 0 64px; max-width: 580px; }
-    .hero h1 { font-size: 40px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 16px; }
-    .hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; max-width: 460px; }
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
 
-    .form-group { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
-    .form-group input { flex: 1; min-width: 220px; font-family: inherit; font-size: 14px; padding: 10px 14px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text-primary); outline: none; transition: border-color 0.15s; }
-    .form-group input::placeholder { color: var(--text-tertiary); }
-    .form-group input:focus { border-color: var(--accent); }
-    .form-group input:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-primary { font-family: inherit; font-size: 14px; font-weight: 500; padding: 10px 18px; background: var(--accent); color: #fff; border: none; border-radius: var(--radius); cursor: pointer; transition: background 0.15s, opacity 0.15s; white-space: nowrap; }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-    .form-hint { font-size: 12px; color: var(--text-tertiary); }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
 
-    .notice { display: none; margin-top: 16px; padding: 12px 14px; border-radius: var(--radius); font-size: 13px; line-height: 1.5; }
-    .notice.success { display: block; background: var(--success-bg); color: var(--success); border: 1px solid var(--success-border); }
-    .notice.error { display: block; background: var(--error-bg); color: var(--error); border: 1px solid var(--error-border); }
+    .logo {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
 
-    .divider { height: 1px; background: var(--border); }
+    .nav-tag {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
 
-    .section { margin: 64px 0; }
-    .section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
-    .section h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; color: var(--text-primary); margin-bottom: 8px; }
-    .section .lead { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; max-width: 520px; }
+    .hero {
+      padding: 96px 0 64px;
+      max-width: 580px;
+    }
 
-    .problem-list { display: flex; flex-direction: column; }
-    .problem-item { display: flex; align-items: flex-start; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border-subtle); }
-    .problem-item:last-child { border-bottom: none; }
-    .p-num { font-size: 12px; color: var(--text-tertiary); font-weight: 500; width: 20px; flex-shrink: 0; margin-top: 2px; }
-    .p-body h3 { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
-    .p-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+    .hero h1 {
+      font-size: 40px;
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
 
-    .steps-list { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--radius); }
-    .step-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border-bottom: 1px solid var(--border-subtle); }
-    .step-item:last-child { border-bottom: none; }
-    .step-num { width: 24px; height: 24px; border-radius: 50%; background: var(--accent); color: #fff; font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
-    .step-body h3 { font-size: 14px; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
-    .step-body p { font-size: 13px; color: var(--text-secondary); line-height: 1.55; }
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 36px;
+      max-width: 460px;
+    }
 
-    .faq-list { display: flex; flex-direction: column; border: 1px solid var(--border); border-radius: var(--radius); }
-    .faq-item { border-bottom: 1px solid var(--border-subtle); }
-    .faq-item:last-child { border-bottom: none; }
-    .faq-q { width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; font-family: inherit; font-size: 14px; font-weight: 500; color: var(--text-primary); background: none; border: none; cursor: pointer; gap: 16px; transition: background 0.1s; }
-    .faq-q:hover { background: var(--surface-2); }
-    .faq-icon { font-size: 18px; color: var(--text-tertiary); flex-shrink: 0; transition: transform 0.15s; line-height: 1; }
-    .faq-item.open .faq-icon { transform: rotate(45deg); }
-    .faq-a { display: none; padding: 0 20px 16px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
-    .faq-item.open .faq-a { display: block; }
+    .signup-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 12px;
+      max-width: 520px;
+    }
 
-    footer { border-top: 1px solid var(--border); padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 64px; }
-    footer p { font-size: 12px; color: var(--text-tertiary); }
-    footer a { font-size: 12px; color: var(--text-tertiary); text-decoration: none; }
-    footer a:hover { color: var(--text-secondary); }
+    .name-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .input {
+      flex: 1;
+      min-width: 220px;
+      font-family: inherit;
+      font-size: 14px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    .input::placeholder {
+      color: var(--text-tertiary);
+    }
+
+    .input:focus {
+      border-color: var(--accent);
+    }
+
+    .input:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .email-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .email-row .input {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .btn-primary {
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 18px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .form-hint {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .notice {
+      display: none;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .notice.success {
+      display: block;
+      background: var(--success-bg);
+      color: var(--success);
+      border: 1px solid var(--success-border);
+    }
+
+    .notice.error {
+      display: block;
+      background: var(--error-bg);
+      color: var(--error);
+      border: 1px solid var(--error-border);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section {
+      margin: 64px 0;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-tertiary);
+      margin-bottom: 8px;
+    }
+
+    .section h2 {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .section .lead {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 32px;
+      max-width: 520px;
+    }
+
+    .problem-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .problem-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .problem-item:last-child {
+      border-bottom: none;
+    }
+
+    .p-num {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      font-weight: 500;
+      width: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .p-body h3 {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .p-body p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .step-item:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .step-body h3 {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .step-body p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-q {
+      width: 100%;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      background: none;
+      border: none;
+      cursor: pointer;
+      gap: 16px;
+      transition: background 0.1s;
+    }
+
+    .faq-q:hover {
+      background: var(--surface-2);
+    }
+
+    .faq-icon {
+      font-size: 18px;
+      color: var(--text-tertiary);
+      flex-shrink: 0;
+      transition: transform 0.15s;
+      line-height: 1;
+    }
+
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-a {
+      display: none;
+      padding: 0 20px 16px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .faq-item.open .faq-a {
+      display: block;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 64px;
+    }
+
+    footer p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    footer a {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--text-secondary);
+    }
+
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .email-row {
+        flex-direction: column;
+      }
+
+      .email-row .btn-primary {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -101,10 +421,19 @@
   <div class="hero">
     <h1>A second opinion from the right specialist, without the wait</h1>
     <p>We're building direct access to top international doctors — no referrals, no insurance barriers. Join the waitlist and be first in when we launch.</p>
-    <div class="form-group">
-      <input type="email" id="email" placeholder="your@email.com" />
-      <button class="btn-primary" id="submitBtn" onclick="handleSubmit()">Join the waitlist</button>
+
+    <div class="signup-form">
+      <div class="name-row">
+        <input class="input" type="text" id="firstName" placeholder="First name" />
+        <input class="input" type="text" id="lastName" placeholder="Last name" />
+      </div>
+
+      <div class="email-row">
+        <input class="input" type="email" id="email" placeholder="your@email.com" />
+        <button class="btn-primary" id="submitBtn" onclick="handleSubmit()">Join the waitlist</button>
+      </div>
     </div>
+
     <p class="form-hint">No spam. You'll hear from us when we're ready to launch.</p>
     <div class="notice" id="notice"></div>
   </div>
@@ -208,16 +537,37 @@
 
   function setLoading(loading) {
     const btn = document.getElementById('submitBtn');
-    const inp = document.getElementById('email');
+    const firstName = document.getElementById('firstName');
+    const lastName = document.getElementById('lastName');
+    const email = document.getElementById('email');
+
     btn.disabled = loading;
-    inp.disabled = loading;
+    firstName.disabled = loading;
+    lastName.disabled = loading;
+    email.disabled = loading;
     btn.textContent = loading ? 'Submitting...' : btn.dataset.label;
   }
 
   async function handleSubmit() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
     const email = document.getElementById('email').value.trim();
     const notice = document.getElementById('notice');
+
     notice.className = 'notice';
+    notice.textContent = '';
+
+    if (!firstName) {
+      notice.className = 'notice error';
+      notice.textContent = 'Please enter your first name.';
+      return;
+    }
+
+    if (!lastName) {
+      notice.className = 'notice error';
+      notice.textContent = 'Please enter your last name.';
+      return;
+    }
 
     if (!email || !email.includes('@')) {
       notice.className = 'notice error';
@@ -226,25 +576,36 @@
     }
 
     setLoading(true);
+
     try {
       const res = await fetch('https://inthealth.onrender.com/join', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          email: email
+        })
       });
+
       const data = await res.json();
+
       if (res.ok) {
         notice.className = 'notice success';
         notice.textContent = "You're on the list. We'll reach out when we launch.";
+        document.getElementById('firstName').value = '';
+        document.getElementById('lastName').value = '';
         document.getElementById('email').value = '';
       } else {
         notice.className = 'notice error';
         notice.textContent = data.error || 'Something went wrong. Please try again.';
       }
-    } catch {
+    } catch (error) {
       notice.className = 'notice error';
       notice.textContent = 'Unable to connect. Please try again in a moment.';
+      console.error('Submission error:', error);
     }
+
     setLoading(false);
   }
 

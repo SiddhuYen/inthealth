@@ -53,6 +53,8 @@ def init_db():
             CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
                 email TEXT UNIQUE NOT NULL,
+                first_name TEXT NOT NULL,
+                last_name TEXT NOT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
@@ -62,19 +64,25 @@ def init_db():
         conn.close()
 
 
-def insert_email(email):
+def insert_user(email, first_name, last_name):
     conn = get_connection()
     c = conn.cursor()
     try:
-        c.execute("INSERT INTO users (email) VALUES (%s)", (email,))
+        c.execute(
+            """
+            INSERT INTO users (email, first_name, last_name)
+            VALUES (%s, %s, %s)
+            """,
+            (email, first_name, last_name)
+        )
         conn.commit()
         return "created"
     except errors.UniqueViolation:
         conn.rollback()
         return "duplicate"
-    except Exception as e:
+    except Exception:
         conn.rollback()
-        logging.exception("DB error while inserting email")
+        logging.exception("DB error while inserting user")
         return "error"
     finally:
         c.close()
@@ -93,11 +101,19 @@ def join():
         return jsonify({"error": "Invalid request body"}), 400
 
     email = (data.get("email") or "").strip().lower()
+    first_name = (data.get("first_name") or "").strip()
+    last_name = (data.get("last_name") or "").strip()
 
     if not re.match(EMAIL_REGEX, email):
         return jsonify({"error": "Invalid email address"}), 400
 
-    result = insert_email(email)
+    if not first_name or not last_name:
+        return jsonify({"error": "First and last name are required"}), 400
+
+    first_name = first_name.capitalize()
+    last_name = last_name.capitalize()
+
+    result = insert_user(email, first_name, last_name)
 
     if result == "duplicate":
         return jsonify({"error": "That email is already on the waitlist"}), 409
@@ -118,7 +134,7 @@ def admin_emails():
     c = conn.cursor()
     try:
         c.execute("""
-            SELECT email, created_at
+            SELECT first_name, last_name, email, created_at
             FROM users
             ORDER BY created_at DESC
         """)
@@ -126,8 +142,10 @@ def admin_emails():
 
         return jsonify([
             {
-                "email": row[0],
-                "created_at": row[1].isoformat() if row[1] else None
+                "first_name": row[0],
+                "last_name": row[1],
+                "email": row[2],
+                "created_at": row[3].isoformat() if row[3] else None
             }
             for row in rows
         ])
