@@ -42,7 +42,9 @@ def is_rate_limited(ip):
 
 
 def get_connection():
-    return psycopg2.connect(DATABASE_URL, sslmode="require")
+    # If your DATABASE_URL is the Render internal URL, this should work.
+    # If it still fails, try adding ?sslmode=require to the env var itself.
+    return psycopg2.connect(DATABASE_URL)
 
 
 def init_db():
@@ -99,8 +101,12 @@ def debug_db():
     try:
         conn = get_connection()
         c = conn.cursor()
+
+        c.execute("SELECT current_database(), current_user;")
+        db_info = c.fetchone()
+
         c.execute("SELECT 1;")
-        one = c.fetchone()
+        ping = c.fetchone()
 
         c.execute("""
             SELECT EXISTS (
@@ -108,16 +114,28 @@ def debug_db():
                 WHERE table_name = 'users'
             );
         """)
-        table_exists = c.fetchone()[0]
+        users_table_exists = c.fetchone()[0]
+
+        c.execute("""
+            SELECT column_name, data_type
+            FROM information_schema.columns
+            WHERE table_name = 'users'
+            ORDER BY ordinal_position;
+        """)
+        columns = c.fetchall()
 
         c.close()
         conn.close()
 
         return jsonify({
             "database_url_present": bool(DATABASE_URL),
-            "connected": one == (1,),
-            "users_table_exists": table_exists
+            "connected": ping == (1,),
+            "database_name": db_info[0],
+            "database_user": db_info[1],
+            "users_table_exists": users_table_exists,
+            "users_columns": columns
         }), 200
+
     except Exception as e:
         logging.exception(f"debug_db failed: {e}")
         return jsonify({
