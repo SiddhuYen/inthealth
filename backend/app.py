@@ -59,6 +59,7 @@ def init_db():
             )
         """)
         conn.commit()
+        logging.info("Database initialized successfully")
     finally:
         c.close()
         conn.close()
@@ -163,9 +164,11 @@ def home():
     return "Backend is running", 200
 
 
-if __name__ == "__main__":
-    if not DATABASE_URL:
-        raise RuntimeError("DATABASE_URL environment variable is not set")
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL environment variable is not set")
 
-    init_db()
+init_db()
+
+
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
