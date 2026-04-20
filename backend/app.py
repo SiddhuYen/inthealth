@@ -42,7 +42,7 @@ def is_rate_limited(ip):
 
 
 def get_connection():
-    return psycopg2.connect(DATABASE_URL)
+    return psycopg2.connect(DATABASE_URL, sslmode="require")
 
 
 def init_db():
@@ -60,6 +60,10 @@ def init_db():
         """)
         conn.commit()
         logging.info("Database initialized successfully")
+    except Exception as e:
+        conn.rollback()
+        logging.exception(f"init_db failed: {e}")
+        raise
     finally:
         c.close()
         conn.close()
@@ -77,17 +81,50 @@ def insert_user(email, first_name, last_name):
             (email, first_name, last_name)
         )
         conn.commit()
-        return "created"
+        return "created", None
     except errors.UniqueViolation:
         conn.rollback()
-        return "duplicate"
-    except Exception:
+        return "duplicate", None
+    except Exception as e:
         conn.rollback()
-        logging.exception("DB error while inserting user")
-        return "error"
+        logging.exception(f"DB error while inserting user: {e}")
+        return "error", str(e)
     finally:
         c.close()
         conn.close()
+
+
+@app.route("/debug/db", methods=["GET"])
+def debug_db():
+    try:
+        conn = get_connection()
+        c = conn.cursor()
+        c.execute("SELECT 1;")
+        one = c.fetchone()
+
+        c.execute("""
+            SELECT EXISTS (
+                SELECT FROM information_schema.tables
+                WHERE table_name = 'users'
+            );
+        """)
+        table_exists = c.fetchone()[0]
+
+        c.close()
+        conn.close()
+
+        return jsonify({
+            "database_url_present": bool(DATABASE_URL),
+            "connected": one == (1,),
+            "users_table_exists": table_exists
+        }), 200
+    except Exception as e:
+        logging.exception(f"debug_db failed: {e}")
+        return jsonify({
+            "database_url_present": bool(DATABASE_URL),
+            "connected": False,
+            "error": str(e)
+        }), 500
 
 
 @app.route("/join", methods=["POST"])
@@ -115,12 +152,12 @@ def join():
     first_name = first_name.capitalize()
     last_name = last_name.capitalize()
 
-    result = insert_user(email, first_name, last_name)
+    result, detail = insert_user(email, first_name, last_name)
 
     if result == "duplicate":
         return jsonify({"error": "That email is already on the waitlist"}), 409
     if result == "error":
-        return jsonify({"error": "Server error"}), 500
+        return jsonify({"error": "Server error", "detail": detail}), 500
 
     return jsonify({"success": True}), 201
 
@@ -151,9 +188,9 @@ def admin_emails():
             }
             for row in rows
         ])
-    except Exception:
-        logging.exception("DB error while fetching admin emails")
-        return jsonify({"error": "Server error"}), 500
+    except Exception as e:
+        logging.exception(f"DB error while fetching admin emails: {e}")
+        return jsonify({"error": "Server error", "detail": str(e)}), 500
     finally:
         c.close()
         conn.close()
